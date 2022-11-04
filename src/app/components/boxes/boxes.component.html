@@ -1,0 +1,11 @@
+<ng-container *ngIf="loading; else showBoxes"> loading ... </ng-container>
+<ng-template #showBoxes>
+  <ng-container *ngFor="let box of boxes">
+    <div>
+      <span>{{ box.node.name }}</span>
+      <img src="{{ box.node.iconUrl }}" alt="{{ box.node.name }}" />
+      {{ box.node.cost }}
+      <a [routerLink]="['/box', box.node.id]">OPEN</a>
+    </div>
+  </ng-container>
+</ng-template>

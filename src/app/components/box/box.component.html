@@ -1,0 +1,11 @@
+<ng-container *ngIf="loading; else showBox"> loading ... </ng-container>
+<ng-template #showBox>
+  <ng-container *ngIf="box">
+    <div>
+      <span>{{ box.name }}</span>
+      <img src="{{ box.iconUrl }}" alt="{{ box.name }}" />
+      {{ box.cost }}
+      <app-open-box [id]="box.id"></app-open-box>
+    </div>
+  </ng-container>
+</ng-template>

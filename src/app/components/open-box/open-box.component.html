@@ -1,0 +1,12 @@
+<button (click)="open()">OPEN</button>
+
+<ng-container *ngIf="loading; else showItem"> loading ... </ng-container>
+<ng-template #showItem>
+  <ng-container *ngIf="itemVariant">
+    <div>
+      <span>{{ itemVariant.name }}</span>
+      <img src="{{ itemVariant.iconUrl }}" alt="{{ itemVariant.name }}" />
+      {{ itemVariant.value }}
+    </div>
+  </ng-container>
+</ng-template>

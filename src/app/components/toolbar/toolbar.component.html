@@ -1,0 +1,16 @@
+<mat-toolbar>
+  <span
+    ><a [routerLink]="['/']">{{ title }}</a></span
+  >
+  <span class="example-spacer"></span>
+
+  <ng-container *ngIf="loading; else showUser"> loading ... </ng-container>
+  <ng-template #showUser>
+    <ng-container *ngIf="user; else login">
+      <span>{{ user.name }}</span>
+      <span> | </span>
+      <span>{{ user.wallets[0].currency }} {{ user.wallets[0].amount }}</span>
+    </ng-container>
+    <ng-template #login> login </ng-template>
+  </ng-template>
+</mat-toolbar>
