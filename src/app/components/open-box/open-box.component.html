@@ -6,7 +6,7 @@
   ><app-loading></app-loading
 ></ng-container>
 <ng-template #showItem>
-  <ng-container *ngIf="itemVariant">
+  <ng-container *ngIf="itemVariant && isUserLogged">
     <div>
       <span>{{ itemVariant.name }}</span>
       <div

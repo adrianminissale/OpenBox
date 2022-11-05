@@ -1,4 +1,10 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  OnDestroy,
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+} from '@angular/core';
 import { Apollo, gql } from 'apollo-angular';
 import { Subscription } from 'rxjs';
 
@@ -9,13 +15,14 @@ import { GET_BOXES } from './boxes.query';
   selector: 'app-boxes',
   templateUrl: './boxes.component.html',
   styleUrls: ['./boxes.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class BoxesComponent implements OnInit, OnDestroy {
   public loading: boolean = true;
   public boxes!: Boxes[];
   public querySubscription!: Subscription;
 
-  constructor(private apollo: Apollo) {}
+  constructor(private apollo: Apollo, private ref: ChangeDetectorRef) {}
 
   ngOnInit(): void {
     this.querySubscription = this.apollo
@@ -25,6 +32,7 @@ export class BoxesComponent implements OnInit, OnDestroy {
       .valueChanges.subscribe(({ data, loading }) => {
         this.loading = loading;
         this.boxes = data && data.boxes.edges;
+        this.ref.markForCheck();
       });
   }
 

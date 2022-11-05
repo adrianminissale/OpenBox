@@ -1,4 +1,11 @@
-import { Component, Input, OnInit, OnDestroy } from '@angular/core';
+import {
+  Component,
+  Input,
+  OnInit,
+  OnDestroy,
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+} from '@angular/core';
 import { Apollo } from 'apollo-angular';
 import { Subscription } from 'rxjs';
 
@@ -12,6 +19,7 @@ import { OPEN_BOX, GET_ITEM_VARIANT } from './open-box.query';
   selector: 'app-open-box',
   templateUrl: './open-box.component.html',
   styleUrls: ['./open-box.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class OpenBoxComponent implements OnInit, OnDestroy {
   @Input() id!: string;
@@ -22,9 +30,14 @@ export class OpenBoxComponent implements OnInit, OnDestroy {
   public isUserLogged: boolean = false;
   private isLoggedIn$ = this.store.select(UserState.isLoggedIn);
 
-  constructor(private apollo: Apollo, private store: Store) {
+  constructor(
+    private apollo: Apollo,
+    private store: Store,
+    private ref: ChangeDetectorRef
+  ) {
     this.isLoggedIn$.subscribe((value) => {
       this.isUserLogged = value;
+      this.ref.markForCheck();
     });
   }
 
@@ -50,6 +63,7 @@ export class OpenBoxComponent implements OnInit, OnDestroy {
             .valueChanges.subscribe(({ data, loading }) => {
               this.loading = loading;
               this.itemVariant = data && data.itemVariant;
+              this.ref.markForCheck();
             });
         }
       });

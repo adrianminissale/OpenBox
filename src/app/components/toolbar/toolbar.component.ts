@@ -1,4 +1,10 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  OnDestroy,
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+} from '@angular/core';
 import { Apollo } from 'apollo-angular';
 import { Subscription } from 'rxjs';
 
@@ -12,6 +18,7 @@ import { GET_USER, GET_WALLETS } from './toolbar.query';
   selector: 'app-toolbar',
   templateUrl: './toolbar.component.html',
   styleUrls: ['./toolbar.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ToolbarComponent implements OnInit, OnDestroy {
   public title: string = '🎁 OpenBox';
@@ -20,9 +27,14 @@ export class ToolbarComponent implements OnInit, OnDestroy {
   public isUserLogged: boolean = false;
   private isLoggedIn$ = this.store.select(UserState.isLoggedIn);
 
-  constructor(private apollo: Apollo, private store: Store) {
+  constructor(
+    private apollo: Apollo,
+    private store: Store,
+    private ref: ChangeDetectorRef
+  ) {
     this.isLoggedIn$.subscribe((value) => {
       this.isUserLogged = value;
+      this.ref.markForCheck();
     });
   }
 
@@ -48,7 +60,7 @@ export class ToolbarComponent implements OnInit, OnDestroy {
       .subscribe({
         query: GET_WALLETS,
       })
-      .subscribe();
+      .subscribe(() => this.ref.markForCheck());
 
     if (
       localStorage.getItem('isUserLogged') &&
