@@ -1,10 +1,19 @@
+@import "/src/app/_variables.scss";
+
 :host {
+  display: block;
+  margin: 30px;
+  button {
+    margin-bottom: 30px;
+  }
   span {
     display: block;
   }
-  img {
+  .avatar {
     display: block;
-    max-width: 40px;
-    max-height: 40px;
+    margin: 10px auto;
+    width: $avatar_sm;
+    height: $avatar_sm;
+    background-size: contain;
   }
 }

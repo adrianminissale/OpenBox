@@ -1,10 +1,15 @@
-<ng-container *ngIf="loading; else showBox"> loading ... </ng-container>
+<ng-container *ngIf="loading; else showBox"
+  ><app-loading></app-loading
+></ng-container>
 <ng-template #showBox>
   <ng-container *ngIf="box">
     <div>
-      <span>{{ box.name }}</span>
-      <img src="{{ box.iconUrl }}" alt="{{ box.name }}" />
-      {{ box.cost }}
+      <h2>{{ box.name }}</h2>
+      <div
+        class="avatar"
+        [ngStyle]="{ 'background-image': 'url(' + box.iconUrl + ')' }"
+      ></div>
+      💰 {{ box.cost }}
       <app-open-box [id]="box.id"></app-open-box>
     </div>
   </ng-container>

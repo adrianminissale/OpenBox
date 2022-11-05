@@ -1,10 +1,15 @@
+@import "/src/app/_variables.scss";
+
 :host {
-  span {
-    display: block;
+  text-align: center;
+  h2 {
+    margin: 0;
   }
-  img {
+  .avatar {
     display: block;
-    max-width: 40px;
-    max-height: 40px;
+    width: $avatar_lg;
+    height: $avatar_lg;
+    background-size: contain;
+    margin: 10px auto;
   }
 }

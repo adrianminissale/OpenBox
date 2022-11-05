@@ -2,15 +2,19 @@
   <span
     ><a [routerLink]="['/']">{{ title }}</a></span
   >
-  <span class="example-spacer"></span>
+  <span class="spacer"></span>
 
-  <ng-container *ngIf="loading; else showUser"> loading ... </ng-container>
-  <ng-template #showUser>
-    <ng-container *ngIf="user; else login">
-      <span>{{ user.name }}</span>
-      <span> | </span>
-      <span>{{ user.wallets[0].currency }} {{ user.wallets[0].amount }}</span>
-    </ng-container>
-    <ng-template #login> login </ng-template>
+  <ng-container *ngIf="isUserLogged; else loginUser">
+    <ng-container *ngIf="!user; else showUser"
+      ><app-loading></app-loading
+    ></ng-container>
+    <ng-template #showUser>
+      <span>🎮 {{ user.name }}</span>
+      <span>💰 {{ user.wallets[0].amount }}</span>
+      <button mat-raised-button (click)="logout()">LOGOUT</button>
+    </ng-template>
+  </ng-container>
+  <ng-template #loginUser>
+    <button mat-raised-button color="primary" (click)="login()">LOGIN</button>
   </ng-template>
 </mat-toolbar>
