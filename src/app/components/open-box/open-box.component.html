@@ -1,0 +1,19 @@
+<button *ngIf="isUserLogged" mat-raised-button color="primary" (click)="open()">
+  OPEN
+</button>
+
+<ng-container *ngIf="loading; else showItem"
+  ><app-loading></app-loading
+></ng-container>
+<ng-template #showItem>
+  <ng-container *ngIf="itemVariant && isUserLogged">
+    <div>
+      <span>{{ itemVariant.name }}</span>
+      <div
+        class="avatar"
+        [ngStyle]="{ 'background-image': 'url(' + itemVariant.iconUrl + ')' }"
+      ></div>
+      💰 {{ itemVariant.value }}
+    </div>
+  </ng-container>
+</ng-template>

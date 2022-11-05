@@ -1,0 +1,15 @@
+<ng-container *ngIf="loading; else showBoxes"
+  ><app-loading></app-loading
+></ng-container>
+<ng-template #showBoxes>
+  <ng-container *ngFor="let box of boxes">
+    <a mat-raised-button [routerLink]="['/box', box.node.id]">
+      <span>{{ box.node.name }}</span>
+      <div
+        class="avatar"
+        [ngStyle]="{ 'background-image': 'url(' + box.node.iconUrl + ')' }"
+      ></div>
+      💰 {{ box.node.cost }}
+    </a>
+  </ng-container>
+</ng-template>

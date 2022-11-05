@@ -1,0 +1,15 @@
+@import "/src/app/_variables.scss";
+
+:host {
+  text-align: center;
+  h2 {
+    margin: 0;
+  }
+  .avatar {
+    display: block;
+    width: $avatar_lg;
+    height: $avatar_lg;
+    background-size: contain;
+    margin: 10px auto;
+  }
+}

@@ -1,0 +1,19 @@
+@import "/src/app/_variables.scss";
+
+:host {
+  text-align: center;
+  a {
+    text-align: center;
+    margin: 10px;
+  }
+  span {
+    display: block;
+  }
+  .avatar {
+    display: block;
+    margin: auto;
+    width: $avatar_sm;
+    height: $avatar_sm;
+    background-size: contain;
+  }
+}
